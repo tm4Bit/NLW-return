@@ -28,7 +28,7 @@ body {
     background-color: $brand-green-light-02;
 }
 .wrapper {
-    width: 37.5rem;
+    width: min(50rem, 100%);
     margin-inline: auto;
     padding-inline: 2.4rem;
 }
@@ -69,6 +69,10 @@ header button {
     border: none;
     cursor: pointer;
 }
+header .menu,
+header .close-menu {
+    position: fixed;
+}
 /*==================== Menu expanded ====================*/
 .menu,
 .close-menu,
@@ -87,7 +91,6 @@ body.menu-expanded .close-menu {
 body.menu-expanded {
     overflow: hidden;
     .menu {
-        position: fixed;
         top: 0;
         left: 0;
         background: $brand-green;
@@ -159,6 +162,7 @@ body.menu-expanded {
         }
     }
 }  
+
 body.menu-expanded > :not(header) {
     visibility: hidden;
 }
@@ -195,7 +199,7 @@ body.menu-expanded > :not(header) {
 }
 .hero::before {
     content: "";
-    height: calc(108rem + $nav-height);
+    height: calc(200% + $nav-height);
     width: 100vw;
     background-color: $brand-green-light;
     display: block;
@@ -238,7 +242,7 @@ body.menu-expanded > :not(header) {
     object-position: 0 2rem;
 }
 .stats {
-    width: 32.7rem;
+    width: 100%;
     padding-block: 4rem;
     margin-inline: auto;
 
@@ -432,4 +436,228 @@ footer {
 #toTheTop.show {
 transform: translateY(0);
     opacity: 1;
+}
+/*========== Responsivity ==================================*/
+@media (min-width: 1024px) {
+    /*========== Geral ============*/
+    body {
+        overflow: auto;
+        overflow-x: hidden;
+    }
+    .wrapper {
+        width: min(112rem, 100%);
+        display: grid;
+    }
+    /*========== header ============*/
+
+    /*Reset*/
+    header#navigation .wrapper * {
+        margin: 0;
+        padding: 0;
+        visibility: initial;
+        display: initial;
+        opacity: initial;
+        flex-direction: initial;
+        position: initial;
+        font-size: initial;
+        font-weight: initial;
+        transform: initial;
+        color: initial;
+        background-color: initial;
+    }
+    header#navigation .close-menu,
+    header#navigation .open-menu,
+    header#navigation .social-links {
+        display: none;
+    }
+    header#navigation .menu{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 60%;
+        ul:nth-child(1) {
+            display: flex;
+            gap: 3.2rem;
+            a {
+                text-decoration: none;
+                color: $brand-green;
+                opacity: 0.7;
+                padding-bottom: 2.4rem;
+            }
+            a:hover {
+                border-bottom: 0.2rem solid $brand-green;
+                opacity: 1;
+                font-weight: 700;
+            }
+        }
+        a.button {
+            color: $brand-green;
+            font-size: 1.4rem;
+            text-decoration: none;
+            padding: 1rem 2.4rem;
+            border: 0.1rem solid $brand-green;
+            border-radius: 4rem;
+        }
+    }
+    header#navigation.scroll .menu{
+
+        ul li a {
+        color: $brand-green-light;
+        }
+        ul li a:hover {
+            border-bottom: 0.2rem solid $brand-green-light;
+        }
+        a.button {
+            color: $brand-green-light;
+            border-color: $brand-green-light;
+        }
+    }
+    /*========== Hero section ============*/
+    #home {
+        padding-top: $nav-height;
+    }
+    .hero::before {
+        height: calc(130% - $nav-height);
+    }
+    #home .wrapper {
+        grid-template-columns: 60rem 1fr;
+        grid-template-areas: 
+        'A B'
+        'C C';
+        .col-a {
+            grid-area: A;
+            text-align: left;
+            align-self: center;
+            h1 {
+                font-size: 5.2rem;
+                margin-bottom: 2.4;
+            }
+            p {
+                font-size: 1.8rem;
+                margin: 0;
+                margin-bottom: 3.2rem;
+            }
+            .bnt {
+                margin-inline: 0;
+            }
+        }
+        .col-b {
+            grid-area: B;
+            img {
+                width: 42rem;
+                object-position: 0 4rem;
+            }
+        }
+        .stats {
+            grid-area: C;
+            flex-direction: row;
+            gap: 0;
+            padding: 6rem;
+            .stat {
+                flex: 1;
+            }
+        }
+    }
+    #home .stats .stat + .stat {
+        border-left: 1px solid $brand-green;
+    }
+    /*========== services section ============*/
+    #services {
+        padding-bottom: 16rem;
+        .wrapper {
+            .head {
+                h4 {
+                    font-size: 1.4rem;
+                    line-height: 2.1rem;
+                }
+                h2 {
+                    font-size: 4rem;
+                    line-height: 5.2rem;
+                    width: 49.7rem;
+                    color: $gray-headline;
+                }
+            }
+            .cards {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 4rem;
+                .card {
+                    width: 30%;
+                    flex-grow: 1;
+                }
+            }
+        }
+    }
+    /*========== about section ============*/
+    #about {
+        .wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: 'B A';
+            gap: 6.7rem;
+            .col-a {
+                grid-area: A;
+                align-self: center;
+                p {
+                    margin-bottom: 0;
+                }
+            }
+            .col-b {
+                grid-area: B;
+                img {
+                    width: 48rem;
+                }
+            }
+        }
+    }
+    /*========== contact section ============*/
+    #contact {
+        padding-block: 16rem;
+        .wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: 'A B';
+            // gap: 14.1rem;
+        }
+        .col-a {
+            grid-area: A;
+            align-self: center;
+            margin: 0;
+            h2 {
+                font-size: 4rem;
+                line-height: 5.2rem;
+                width: 40.4rem;
+            }
+        }
+        .col-b {
+            grid-area: B;
+            align-self: center;
+            img {
+                width: 57.5rem;
+            }
+        }
+    }
+    /*========== contact section ============*/
+    footer {
+        padding-block: 8rem;
+        .wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-areas: 'A B';
+            gap: 59rem;
+        }
+        .col-a {
+            grid-area: A;
+            align-self: center;
+            address {
+                margin-bottom: 0;
+            }
+        }
+        .col-b {
+            grid-area: B;
+        }
+        div.social-links {
+            justify-content: flex-end;
+        }
+    }
 }
