@@ -1,28 +1,38 @@
-function onScroll() {
-  onScrollShowMenu()
-  scrollShowToTheTopButton()
+const nav = document.getElementById('navigation');
+const backToTheTop = document.getElementById('toTheTop');
+const openMenuBtn = document.getElementById('open-menu-btn');
+const closeMenuBtn = document.getElementById('close-menu-btn');
+
+window.addEventListener('scroll', scroll);
+
+openMenuBtn.addEventListener('click', openMenu);
+closeMenuBtn.addEventListener('click', closeMenu);
+
+function scroll() {
+  onScrollShowMenu();
+  scrollShowToTheTopButton();
 }
 
 function onScrollShowMenu() {
   if (scrollY > 0) {
-    navigation.classList.add('scroll')
+    nav.classList.add('scroll');
   } else {
-    navigation.classList.remove('scroll')
+    nav.classList.remove('scroll');
   }
 }
 
 function scrollShowToTheTopButton() {
   if (scrollY > 500) {
-    toTheTop.classList.add('show')
+    backToTheTop.classList.add('show');
   } else {
-    toTheTop.classList.remove('show')
+    backToTheTop.classList.remove('show');
   }
 }
 
 function openMenu() {
-  document.body.classList.add('menu-expanded')
+  document.body.classList.add('menu-expanded');
 }
 
 function closeMenu() {
-  document.body.classList.remove('menu-expanded')
+  document.body.classList.remove('menu-expanded');
 }
